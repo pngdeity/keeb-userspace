@@ -8,7 +8,7 @@ External QMK userspace for the EPOMAKER Split65 (WB32FQ95). Holds the personal
 
 | Path | Purpose |
 |------|---------|
-| `keyboards/epomaker/epomaker_split65/keymaps/nathan/` | The personal `nathan` keymap (`keymap.c`, `rules.mk`). |
+| `keyboards/epomaker/epomaker_split65/keymaps/nathan/` | The personal `nathan` keymap (`keymap.c`, `rules.mk`). **`keymap.md` documents the whole layout** — read that, not the OEM manual. |
 
 ## Build
 
