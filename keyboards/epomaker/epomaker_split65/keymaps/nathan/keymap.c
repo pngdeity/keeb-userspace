@@ -69,16 +69,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       * EEPROM back to factory defaults; every other key passes
                       * through so the held key itself stays inert.
                       *
+                      * EE_CLR sits at the right-half bottom-right corner (the
+                      * KC_RGHT position) — the far corner from the Fn-layer key
+                      * that arms this layer. Reaching it needs a held Fn chord
+                      * from the left hand AND a press on the opposite half's
+                      * bottom corner, so it cannot be hit by a single stray
+                      * keypress and is nowhere near Backspace.
+                      *
                       * NOTE: ______ here is HS_BLACK (0x0000 = KC_NO), NOT
                       * KC_TRNS. That is intentional: KC_NO is not
                       * ACTION_TRANSPARENT, so it blocks fall-through and keeps
                       * the base layer unreachable while reset is armed. Do not
                       * "fix" these to KC_TRNS. */
-        _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______, _______,    _______,  _______, _______,  _______,  EE_CLR,
+        _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______, _______,    _______,  _______, _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______, _______,    _______,  _______, _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______, _______,    _______,  _______, _______,            _______,
         _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______, _______,    _______,           _______,  _______,  _______,
-        _______,  _______,  _______,  _______,                                _______,  _______,  _______, _______,                       _______,  _______,  _______),
+        _______,  _______,  _______,  _______,                                _______,  _______,  _______, _______,                       _______,  _______,  EE_CLR),
 
 };
 

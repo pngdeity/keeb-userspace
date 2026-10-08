@@ -103,27 +103,31 @@ Everything else (F-keys under Fn, RGB, radio, the recovery pair) is identical.
 ## 5. Recovery island — the two destructive keys
 
 The only two keys that destroy saved state. They are **deliberately separated**
-so a fumble cannot hit both, and both require Fn held:
+so a fumble cannot hit both:
 
 | Combo | Effect | Risky because |
 |---|---|---|
 | **Fn + top-right corner key, tapped** | nothing (inert) | — |
-| **Fn + top-right corner key, held** | `EE_CLR` — **factory reset**: wipes the emulated EEPROM (layer, RGB, overrides) back to defaults | irreversible without re-configuring |
-| **Fn + `/` key** (right half, third row down, `QK_BOOT`) | **reboot into the `wb32-dfu` bootloader** (for flashing) | the half stops typing until reflashed; on this board `QK_BOOT` also clears EEPROM |
+| **Fn + top-right corner key, held, then bottom-right corner** | `EE_CLR` — **factory reset**: wipes the emulated EEPROM (layer, RGB, overrides) back to defaults | irreversible without re-configuring |
+| **`Esc` held at plug-in** (left half) | **reboot into the `wb32-dfu` bootloader** (for flashing) | the half stops typing until reflashed; on this board it also clears EEPROM |
 
 - **Top-right corner** = the key that is `Mute` on the base layer (matrix
-  `[7,8]`).
-- **`QK_BOOT`** sits on the right half, third row down, at the base-layer `/`
-  position (matrix `[10,4]`), two key-widths left of the `RShift` column and one
-  row above the arrow cluster — no single slip reaches the reset key.
+  `[7,8]`). Holding it while Fn is held arms the hold-only `_RST` layer.
+- **`EE_CLR`** sits on the `_RST` layer at the right half's bottom-right corner
+  (the base-layer `Right` position, matrix `[11,7]`) — the far corner from the
+  key that arms the layer, and nowhere near Backspace. It is reachable only by
+  holding the Fn chord with the left hand **and** pressing the opposite half's
+  bottom corner, so no single stray keypress can reach it.
+- **`QK_BOOT`** sits on the **base** layer at the left half's `Esc` position
+  (matrix `[1,0]`).
 
-The factory reset is **hold-to-arm**: the reset key does nothing on a tap, so
-only a deliberate hold resets.
+The factory reset is **hold-to-arm**: the `_RST` layer is only reachable by
+holding, so a tap of the corner key is inert.
 
 **If a half drops into the bootloader**, flash it, or power-cycle it — it will
 come back. Holding `Esc` at plug-in enters DFU on the **left** half only
-(bootmagic; see below); `QK_BOOT` above is the in-keymap route for the right
-half that avoids opening the case.
+(bootmagic; see below). The right half has no keymap route to its own
+bootloader; use the hardware spacebar-pin short (see `docs/HARDWARE.md`).
 
 Bootmagic is enabled (`BOOTMAGIC_ENABLE = yes` in this keymap's `rules.mk`) with
 `bootmagic.matrix` `[1,0]` — the left half's `Esc` position. So holding `Esc`
