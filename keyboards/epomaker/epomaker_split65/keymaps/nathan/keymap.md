@@ -21,7 +21,7 @@ switches which one while held (or, for `TO()`, makes it the standing default).
 |---|---|---|
 | 0 | `_BL` — base (Windows) | default; nothing held |
 | 1 | `_FL` — Fn (Windows) | hold either **spacebar** |
-| 2 | `_MBL` — Mac base | press **Fn + `A`** (`TO(_MBL)`) — sticky, survives reboot |
+| 2 | `_MBL` — Mac base | press **Fn + `S`** (`TO(_MBL)`) — sticky, survives reboot |
 | 3 | `_MFL` — Mac Fn | hold either **spacebar** while on `_MBL` |
 | 4 | `_RST` — recovery | hold **Fn + the top-right corner key** — see §5 |
 
@@ -75,18 +75,24 @@ Flip   GUI⏻ Spd- ·                 BatQ Spd+ ·    ·         NKRO GUI⏻ RGB
 - **`BatQ`:** master-only battery query (lights the LED bar on the right half).
 - **`Flip`:** swaps the Fn-row and number row (OEM behaviour); left Ctrl lights
   red while it is on.
-- **Safe system toggles, bottom-right** (easy to reach, easy to undo):
-  `NKRO` = `NK_TOGG`, `GUI⏻` = `GU_TOGG`, `RGB⏻` = `RGB_TOG`.
+- **Safe system toggles** (easy to reach, easy to undo): `NKRO` = `NK_TOGG`,
+  `GUI⏻` = `GU_TOGG`, `RGB⏻` = `RGB_TOG`. Each appears **twice** on the layer —
+  once in the bottom-right cluster (`[11,6]`/`[11,7]`/`[11,8]`) and once on the
+  left half (`NK_TOGG` at `[10,0]`, `GU_TOGG` at `[5,1]`, `RGB_TOG` at `[4,2]`).
 
 ## 4. Mac layers — `_MBL` / `_MFL`
 
-Reach `_MBL` with **Fn + `A`**. `_MFL` is its Fn layer (hold a spacebar).
+Reach `_MBL` with **Fn + `S`**. `_MFL` is its Fn layer (hold a spacebar).
 They are the Windows layers with the modifier positions made Mac-native:
 
 | Position | `_BL`/`_FL` | `_MBL`/`_MFL` |
 |---|---|---|
 | Left modifier beside Alt | `Win` (`LGUI`) | `Cmd` (`LGUI`) |
-| Fn + `A` / `Fn + S` | switch to Mac (`TO(_MBL)`) | switch back to Windows (`TO(_BL)`) |
+| `Fn + S` / `Fn + A` | switch to Mac (`TO(_MBL)`) | switch back to Windows (`TO(_BL)`) |
+
+The switch sits on a **different key on each layer**: `Fn + S` goes to `_MBL`,
+and `Fn + A` returns to `_BL` — `A` and `S` keep typing normally on the layer
+they are not switching from.
 
 `LGUI` *is* Command on macOS, so the right-hand modifiers (`RAlt`, `RCmd`,
 `RCtrl`) are the same keycodes on both base layers — the meaningful difference
@@ -103,21 +109,27 @@ so a fumble cannot hit both, and both require Fn held:
 |---|---|---|
 | **Fn + top-right corner key, tapped** | nothing (inert) | — |
 | **Fn + top-right corner key, held** | `EE_CLR` — **factory reset**: wipes the emulated EEPROM (layer, RGB, overrides) back to defaults | irreversible without re-configuring |
-| **Fn + `x` key** (right half, third row down, `QK_BOOT`) | **reboot into the `wb32-dfu` bootloader** (for flashing) | the half stops typing until reflashed; on this board `QK_BOOT` also clears EEPROM |
+| **Fn + `/` key** (right half, third row down, `QK_BOOT`) | **reboot into the `wb32-dfu` bootloader** (for flashing) | the half stops typing until reflashed; on this board `QK_BOOT` also clears EEPROM |
 
 - **Top-right corner** = the key that is `Mute` on the base layer (matrix
   `[7,8]`).
-- **`QK_BOOT`** sits on the right half, third row down (matrix `[10,6]`),
-  three key-widths left and three rows below the reset key — no single slip
-  reaches both.
+- **`QK_BOOT`** sits on the right half, third row down, at the base-layer `/`
+  position (matrix `[10,4]`), two key-widths left of the `RShift` column and one
+  row above the arrow cluster — no single slip reaches the reset key.
 
 The factory reset is **hold-to-arm**: the reset key does nothing on a tap, so
 only a deliberate hold resets.
 
 **If a half drops into the bootloader**, flash it, or power-cycle it — it will
-come back. Holding `Esc` at plug-in only enters DFU on the **left** half;
-`QK_BOOT` above is the in-keymap route for the right half that avoids opening
-the case.
+come back. Holding `Esc` at plug-in enters DFU on the **left** half only
+(bootmagic; see below); `QK_BOOT` above is the in-keymap route for the right
+half that avoids opening the case.
+
+Bootmagic is enabled (`BOOTMAGIC_ENABLE = yes` in this keymap's `rules.mk`) with
+`bootmagic.matrix` `[1,0]` — the left half's `Esc` position. So holding `Esc`
+while plugging in the left half's USB cable enters its `wb32-dfu` bootloader.
+The right half has no equivalent: use `QK_BOOT` (above) or the hardware
+spacebar-pin short.
 
 ## 6. Key overrides
 
@@ -143,7 +155,9 @@ Turn only — **the knob has no push-click**; it is a bare rotary encoder.
 - **Bluetooth:** `Fn + Q`/`W`/`E` pair or switch device 1/2/3.
 - **2.4 GHz:** `Fn + R` selects the dongle; toggle the side switch to the right.
 - **Battery LED:** red blink = low; solid = fully charged (right-half indicator).
-- **Battery check:** hold `Fn + B` — keys `1`…`0` light to show the percentage.
+- **Battery check:** hold `Fn` and press the `BatQ` key — the left side of the
+  bottom row on the right half (matrix `[11,1]`, the position under the left
+  spacebar) — to light keys `1`…`0` with the percentage.
 - **Deep sleep** after 30 min idle; any key wakes it. Backlight off after 5 min.
 
 ---
@@ -155,7 +169,7 @@ divergences in `nathan`:
 
 | OEM | `nathan` |
 |---|---|
-| `QK_BOOT` nowhere (Esc-hold only) | `QK_BOOT` on the right half, third row down (`[10,6]`) — the in-keymap route to flash the right half without opening the case |
+| `QK_BOOT` nowhere (Esc-hold only) | `QK_BOOT` on the right half, third row down at the `/` position (`[10,4]`) — the in-keymap route to flash the right half without opening the case; plus bootmagic (`Esc`-hold at plug-in) on the left half |
 | `Fn + Bksp` = factory reset, on a **tap** | factory reset is **hold-to-arm** on the base-layer `Mute` key (`[7,8]`); a tap is inert |
 | Fn on the left spacebar only | Fn on **both** spacebars |
 | Bottom-right order varies | `RAlt, RCmd, RCtrl, Left, Down, Right` |

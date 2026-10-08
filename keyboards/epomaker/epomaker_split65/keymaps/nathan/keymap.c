@@ -46,10 +46,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FL] = LAYOUT( /* Base */
         KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,  KC_F12,   _______,  LT(_RST, KC_NO),
-        RGB_MOD,  KC_BT1,   KC_BT2,   KC_BT3,   KC_2G4,   _______,            _______,  _______,  _______, _______,    _______,  RGB_HUD, RGB_HUI,  _______,  KC_INS,
-        _______,  KC_A,     TO(_MBL), _______,  _______,  _______,            _______,  _______,  _______, _______,    RGB_SAD,  RGB_SAI, _______,            KC_HOME,
-        _______,  _______,  RGB_TOG,  _______,  _______,  _______,            NK_TOGG,  _______,  _______, _______,    QK_BOOT,           _______,  RGB_VAI,  KC_END,
-        KC_FILP,  GU_TOGG,  RGB_SPD,  _______,                                KC_BATQ,  RGB_SPI,  _______, _______,                       NK_TOGG,  GU_TOGG,  RGB_TOG),
+        RM_NEXT,  KC_BT1,   KC_BT2,   KC_BT3,   KC_2G4,   _______,            _______,  _______,  _______, _______,    _______,  RM_HUED, RM_HUEU,  _______,  KC_INS,
+        _______,  KC_A,     TO(_MBL), _______,  _______,  _______,            _______,  _______,  _______, _______,    RM_SATD,  RM_SATU, _______,            KC_HOME,
+        _______,  _______,  RM_TOGG,  _______,  _______,  _______,            NK_TOGG,  _______,  _______, _______,    QK_BOOT,           _______,  RM_VALU,  KC_END,
+        KC_FILP,  GU_TOGG,  RM_SPDD,  _______,                                KC_BATQ,  RM_SPDU,  _______, _______,                       NK_TOGG,  GU_TOGG,  RM_TOGG),
 
     [_MBL] = LAYOUT( /* Base */
         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, KC_MUTE,
@@ -59,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,  KC_LALT,  KC_LGUI,  KC_SPC,                                 LT(_MFL, KC_SPC),   KC_RALT,  KC_RCMD,  KC_RCTL,                      KC_LEFT,  KC_DOWN, KC_RGHT),
     [_MFL] = LAYOUT( /* Base */
         KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,  KC_F12,   _______,  LT(_RST, KC_NO),
-        RGB_MOD,  KC_BT1,   KC_BT2,   KC_BT3,   KC_2G4,   _______,            _______,  _______,  _______, _______,    _______,  RGB_HUD, RGB_HUI,  _______,  KC_INS,
-        _______,  TO(_BL),  KC_S,     _______,  _______,  _______,            _______,  _______,  _______, _______,    RGB_SAD,  RGB_SAI, _______,            KC_HOME,
-        _______,  _______,  RGB_TOG,  _______,  _______,  _______,            NK_TOGG,  _______,  _______, _______,    QK_BOOT,           _______,  RGB_VAI,  KC_END,
-        KC_FILP,  _______,  RGB_SPD,  _______,                                KC_BATQ,  RGB_SPI,  _______, _______,                       NK_TOGG,  GU_TOGG,  RGB_TOG),
+        RM_NEXT,  KC_BT1,   KC_BT2,   KC_BT3,   KC_2G4,   _______,            _______,  _______,  _______, _______,    _______,  RM_HUED, RM_HUEU,  _______,  KC_INS,
+        _______,  TO(_BL),  KC_S,     _______,  _______,  _______,            _______,  _______,  _______, _______,    RM_SATD,  RM_SATU, _______,            KC_HOME,
+        _______,  _______,  RM_TOGG,  _______,  _______,  _______,            NK_TOGG,  _______,  _______, _______,    QK_BOOT,           _______,  RM_VALU,  KC_END,
+        KC_FILP,  _______,  RM_SPDD,  _______,                                KC_BATQ,  RM_SPDU,  _______, _______,                       NK_TOGG,  GU_TOGG,  RM_TOGG),
 
     [_RST] = LAYOUT( /* Hold-only recovery layer (reached via LT(_RST, ...) on the
                       * Fn-layer top-right corner). EE_CLR wipes the emulated
@@ -86,27 +86,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},  // Base:  volume
-    [1] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},   // Fn:    RGB brightness
+    [1] = {ENCODER_CCW_CW(RM_VALD, RM_VALU)},   // Fn:    RGB brightness
     [2] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},  // Mac:   volume
-    [3] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},   // MacFn: RGB brightness
+    [3] = {ENCODER_CCW_CW(RM_VALD, RM_VALU)},   // MacFn: RGB brightness
 };
 #endif
 // clang-format on
 
 bool is_keyboard_master(void) {
-    setPinInput(SPLIT_HAND_PIN);
-    return readPin(SPLIT_HAND_PIN);
+    gpio_set_pin_input(SPLIT_HAND_PIN);
+    return gpio_read_pin(SPLIT_HAND_PIN);
 }
 
 /* Force a solid white at half brightness instead of the vendor's rainbow wave.
  * RGB_MATRIX_DEFAULT_* only apply to a blank EEPROM, and these halves carry
  * saved RGB settings from the stock firmware, so the stored state wins unless
- * we set it here. The non-_noeeprom variants persist this to EEPROM, making it
- * the permanent stored state: it survives a power cycle, and any live changes
- * (RGB_MOD, brightness keys) are saved too but overwritten back to this on the
- * next boot. */
+ * we set it here. This runs on every boot, so it overrides whatever is stored;
+ * the *_noeeprom variants keep it out of the wear-levelled flash — the intent
+ * is a boot-time override, not a new stored value, so persisting it would only
+ * add write churn. */
 void keyboard_post_init_user(void) {
-    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-    rgb_matrix_sethsv(RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_sethsv_noeeprom(RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL);
 }
 
