@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,  KC_F12,   _______,  LT(_RST, KC_NO),
         RM_NEXT,  KC_BT1,   KC_BT2,   KC_BT3,   KC_2G4,   _______,            _______,  _______,  _______, _______,    _______,  RM_HUED, RM_HUEU,  _______,  KC_INS,
         _______,  KC_A,     TO(_MBL), _______,  _______,  _______,            _______,  _______,  _______, _______,    RM_SATD,  RM_SATU, _______,            KC_HOME,
-        _______,  _______,  RM_TOGG,  _______,  _______,  _______,            NK_TOGG,  _______,  _______, _______,    QK_BOOT,           _______,  RM_VALU,  KC_END,
+        _______,  _______,  RM_TOGG,  _______,  _______,  _______,            NK_TOGG,  _______,  _______, _______,    QK_BOOT,           RM_VALD,  RM_VALU,  KC_END,
         KC_FILP,  GU_TOGG,  RM_SPDD,  _______,                                KC_BATQ,  RM_SPDU,  _______, _______,                       NK_TOGG,  GU_TOGG,  RM_TOGG),
 
     [_MBL] = LAYOUT( /* Base */
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,  KC_F12,   _______,  LT(_RST, KC_NO),
         RM_NEXT,  KC_BT1,   KC_BT2,   KC_BT3,   KC_2G4,   _______,            _______,  _______,  _______, _______,    _______,  RM_HUED, RM_HUEU,  _______,  KC_INS,
         _______,  TO(_BL),  KC_S,     _______,  _______,  _______,            _______,  _______,  _______, _______,    RM_SATD,  RM_SATU, _______,            KC_HOME,
-        _______,  _______,  RM_TOGG,  _______,  _______,  _______,            NK_TOGG,  _______,  _______, _______,    QK_BOOT,           _______,  RM_VALU,  KC_END,
+        _______,  _______,  RM_TOGG,  _______,  _______,  _______,            NK_TOGG,  _______,  _______, _______,    QK_BOOT,           RM_VALD,  RM_VALU,  KC_END,
         KC_FILP,  _______,  RM_SPDD,  _______,                                KC_BATQ,  RM_SPDU,  _______, _______,                       NK_TOGG,  GU_TOGG,  RM_TOGG),
 
     [_RST] = LAYOUT( /* Hold-only recovery layer (reached via LT(_RST, ...) on the
@@ -96,6 +96,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [1] = {ENCODER_CCW_CW(RM_VALD, RM_VALU)},   // Fn:    RGB brightness
     [2] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},  // Mac:   volume
     [3] = {ENCODER_CCW_CW(RM_VALD, RM_VALU)},   // MacFn: RGB brightness
+    [4] = {ENCODER_CCW_CW(RM_VALD, RM_VALU)},   // Reset: inert layer; brightness is the harmless default
 };
 #endif
 // clang-format on

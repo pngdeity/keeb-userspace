@@ -154,6 +154,10 @@ Turn only — **the knob has no push-click**; it is a bare rotary encoder.
 | `_BL` / `_MBL` (base) | Volume up / down |
 | `_FL` / `_MFL` (Fn) | RGB brightness up / down |
 
+The knob is a secondary path; keys are authoritative for every RGB axis.
+Brightness has both: **`Fn` + `↑`** = up (`RM_VALU`) and its left neighbour =
+down (`RM_VALD`), symmetric with the hue/sat/speed pairs in the same cluster.
+
 ## 8. Wireless and power (from the OEM firmware, unchanged)
 
 - **Bluetooth:** `Fn + Q`/`W`/`E` pair or switch device 1/2/3.
@@ -177,4 +181,4 @@ divergences in `nathan`:
 | `Fn + Bksp` = factory reset, on a **tap** | factory reset is **hold-to-arm** on the base-layer `Mute` key (`[7,8]`); a tap is inert |
 | Fn on the left spacebar only | Fn on **both** spacebars |
 | Bottom-right order varies | `RAlt, RCmd, RCtrl, Left, Down, Right` |
-| `RGB_SPD`/`RGB_VAD`/`RGB_SPI` bottom-right | `RGB_SPD` (left half) and `RGB_SPI` (right half) kept on the bottom row; `RGB_VAD`/`RGB_VAI` on the encoder under Fn; safe toggles `NK_TOGG`, `GU_TOGG`, `RGB_TOG` grouped bottom-right |
+| `RGB_SPD`/`RGB_VAD`/`RGB_SPI` bottom-right | `RGB_SPD` (left half) and `RGB_SPI` (right half) kept on the bottom row; brightness up/down on `Fn`+`↑` and its neighbour (`RM_VALU`/`RM_VALD`) plus the encoder under Fn; safe toggles `NK_TOGG`, `GU_TOGG`, `RGB_TOG` grouped bottom-right |
