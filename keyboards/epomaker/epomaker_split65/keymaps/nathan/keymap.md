@@ -118,8 +118,10 @@ so a fumble cannot hit both:
   key that arms the layer, and nowhere near Backspace. It is reachable only by
   holding the Fn chord with the left hand **and** pressing the opposite half's
   bottom corner, so no single stray keypress can reach it.
-- **`QK_BOOT`** sits on the **base** layer at the left half's `Esc` position
-  (matrix `[1,0]`).
+- **`QK_BOOT`** sits on the **Fn layers** (`_FL` and `_MFL`) at the right half's
+  matrix `[10,6]` (the position immediately left of `RM_VALD`). It is reachable
+  only while an Fn layer is held, so like the `_RST` corner it takes a deliberate
+  chord, not a stray press.
 
 The factory reset is **hold-to-arm**: the `_RST` layer is only reachable by
 holding, so a tap of the corner key is inert.
@@ -177,7 +179,7 @@ divergences in `nathan`:
 
 | OEM | `nathan` |
 |---|---|
-| `QK_BOOT` nowhere (Esc-hold only) | `QK_BOOT` on the right half, third row down at the `/` position (`[10,4]`) — the in-keymap route to flash the right half without opening the case; plus bootmagic (`Esc`-hold at plug-in) on the left half |
+| `QK_BOOT` nowhere | `QK_BOOT` on the Fn layers (`_FL`/`_MFL`), right half matrix `[10,6]` — the in-keymap route to flash the right half without opening the case; plus bootmagic (`Esc`-hold at plug-in) on the left half |
 | `Fn + Bksp` = factory reset, on a **tap** | factory reset is **hold-to-arm** on the base-layer `Mute` key (`[7,8]`); a tap is inert |
 | Fn on the left spacebar only | Fn on **both** spacebars |
 | Bottom-right order varies | `RAlt, RCmd, RCtrl, Left, Down, Right` |
